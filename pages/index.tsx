@@ -4,7 +4,7 @@ import CircularBar from '../components/CircularBar'
 import { useState } from 'react'
 
 export default function Home() {
-  const [totalTimeInSeconds, setTotalTimeInSeconds] = useState(10)
+  const [totalTimeInSeconds, setTotalTimeInSeconds] = useState(600)
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-red-300 py-2  ">

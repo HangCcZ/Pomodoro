@@ -1,9 +1,18 @@
 import { useState, useRef, useEffect } from 'react'
 
+const secondsToMinutes = (timeInSeconds) => {
+  return `${Math.trunc(timeInSeconds / 60)}:${
+    timeInSeconds % 60 < 10 ? '0' + (timeInSeconds % 60) : timeInSeconds % 60
+  }
+  `
+}
+
 export default function CircularBar({ size, strokeWidth, totalTime }) {
   const [percentage, setPercentage] = useState(100)
-  const [timeLeft, setTimeLeft] = useState(10)
+  const [timeLeft, setTimeLeft] = useState(totalTime)
   const [intervalID, setIntervalID] = useState(0)
+  const [isTicking, setIsTicking] = useState(false)
+  const [isStarted, setIsStarted] = useState(false)
   const viewBox = `0 0 ${size} ${size}`
   const radius = (size - strokeWidth) / 2
   const circumference = radius * Math.PI * 2
@@ -15,12 +24,41 @@ export default function CircularBar({ size, strokeWidth, totalTime }) {
    *  */
 
   /**setState callback is use to update state immediately */
-  const interval = () => {
+  const onStart = () => {
     const currentIntervalID = setInterval(() => {
       setTimeLeft((timeLeft) => timeLeft - 1)
       setPercentage((percentage) => percentage - percentagePerSecond)
     }, 1000)
+    setIsTicking(() => true)
+    setIsStarted(() => true)
     setIntervalID((intervalID) => currentIntervalID)
+  }
+
+  const onPause = () => {
+    clearInterval(intervalID)
+    setIsTicking(() => false)
+  }
+
+  const renderButton = () => {
+    if (!isStarted) {
+      return (
+        <button onClick={onStart} disabled={percentage != 100}>
+          Start
+        </button>
+      )
+    } else if (isTicking) {
+      return (
+        <button onClick={onPause} disabled={percentage == 100}>
+          Pause
+        </button>
+      )
+    } else if (!isTicking && isStarted) {
+      return (
+        <button onClick={onStart} disabled={percentage == 100}>
+          Resume
+        </button>
+      )
+    }
   }
 
   useEffect(() => {
@@ -41,7 +79,7 @@ export default function CircularBar({ size, strokeWidth, totalTime }) {
           cy={size / 2}
           r={radius}
           strokeWidth={`${strokeWidth}px`}
-        ></circle>
+        />
 
         <circle
           fill="none"
@@ -54,14 +92,20 @@ export default function CircularBar({ size, strokeWidth, totalTime }) {
           strokeDasharray={[dash, circumference - dash]}
           strokeLinecap="round"
           style={{ transition: 'all 1.5s' }}
-        ></circle>
+        />
+        <text
+          x="50%"
+          y="50%"
+          textAnchor="middle"
+          fill="white"
+          dy=".3em"
+          className="text-6xl"
+        >
+          {secondsToMinutes(timeLeft)}
+        </text>
       </svg>
-
-      <button onClick={interval} disabled={percentage != 100}>
-        Start
-      </button>
-      <p>{timeLeft}</p>
-      <p>{percentage}</p>
+      {/**TODO: need to set parent container as relative and set button as absolute to move into the circle */}
+      <div className=""> {renderButton()}</div>
     </div>
   )
 }
