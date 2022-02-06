@@ -77,6 +77,7 @@ export default function CircularBar({ size, strokeWidth, totalTime }) {
     if (timeLeft <= 0) {
       setTimeLeft((timeLeft) => totalTime)
       setPercentage((percentage) => 100)
+      setIsStarted(() => false)
       clearInterval(intervalID)
     }
   })
