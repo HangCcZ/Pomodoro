@@ -42,19 +42,31 @@ export default function CircularBar({ size, strokeWidth, totalTime }) {
   const renderButton = () => {
     if (!isStarted) {
       return (
-        <button onClick={onStart} disabled={percentage != 100}>
+        <button
+          onClick={onStart}
+          disabled={percentage != 100}
+          className="font-semibold"
+        >
           Start
         </button>
       )
     } else if (isTicking) {
       return (
-        <button onClick={onPause} disabled={percentage == 100}>
+        <button
+          onClick={onPause}
+          disabled={percentage == 100}
+          className="font-semibold"
+        >
           Pause
         </button>
       )
     } else if (!isTicking && isStarted) {
       return (
-        <button onClick={onStart} disabled={percentage == 100}>
+        <button
+          onClick={onStart}
+          disabled={percentage == 100}
+          className="font-semibold"
+        >
           Resume
         </button>
       )
@@ -70,8 +82,8 @@ export default function CircularBar({ size, strokeWidth, totalTime }) {
   })
 
   return (
-    <div>
-      <svg width={size} height={size} viewBox={viewBox}>
+    <div className="relative">
+      <svg width={size} height={size} viewBox={viewBox} className="static">
         <circle
           fill="none"
           className="stroke-red-500"
@@ -93,19 +105,14 @@ export default function CircularBar({ size, strokeWidth, totalTime }) {
           strokeLinecap="round"
           style={{ transition: 'all 1.5s' }}
         />
-        <text
-          x="50%"
-          y="50%"
-          textAnchor="middle"
-          fill="white"
-          dy=".3em"
-          className="text-6xl"
-        >
-          {secondsToMinutes(timeLeft)}
-        </text>
       </svg>
       {/**TODO: need to set parent container as relative and set button as absolute to move into the circle */}
-      <div className=""> {renderButton()}</div>
+      <div className="absolute top-1/3 w-full text-6xl font-semibold">
+        <p>{secondsToMinutes(timeLeft)}</p>
+      </div>
+      <div className="absolute top-2/3 w-full text-2xl text-gray-50">
+        {renderButton()}
+      </div>
     </div>
   )
 }
