@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Footer from '../components/Footer'
 import CircularBar from '../components/CircularBar'
 import ModeSelector from '../components/ModeSelector'
+import SettingButton from '../components/SettingButton'
 import { useState } from 'react'
 
 export default function Home() {
@@ -18,14 +19,12 @@ export default function Home() {
       </header>
       <main className="flex w-full flex-1 flex-col items-center text-center font-semibold text-gray-100">
         <ModeSelector />
-
-        <div className="mt-14">
-          <CircularBar
-            size={250}
-            strokeWidth={20}
-            totalTime={totalTimeInSeconds}
-          />
-        </div>
+        <CircularBar
+          size={300}
+          strokeWidth={20}
+          totalTime={totalTimeInSeconds}
+        />
+        <SettingButton />
       </main>
 
       <Footer />

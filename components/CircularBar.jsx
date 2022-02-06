@@ -1,12 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
-
-const secondsToMinutes = (timeInSeconds) => {
-  return `${Math.trunc(timeInSeconds / 60)}:${
-    timeInSeconds % 60 < 10 ? '0' + (timeInSeconds % 60) : timeInSeconds % 60
-  }
-  `
-}
-
+import TimeRemain from '../components/TimeRemain'
+import ClockButton from '../components/ClockButton'
 export default function CircularBar({ size, strokeWidth, totalTime }) {
   const [percentage, setPercentage] = useState(100)
   const [timeLeft, setTimeLeft] = useState(totalTime)
@@ -39,40 +33,6 @@ export default function CircularBar({ size, strokeWidth, totalTime }) {
     setIsTicking(() => false)
   }
 
-  const renderButton = () => {
-    if (!isStarted) {
-      return (
-        <button
-          onClick={onStart}
-          disabled={percentage != 100}
-          className="font-semibold"
-        >
-          Start
-        </button>
-      )
-    } else if (isTicking) {
-      return (
-        <button
-          onClick={onPause}
-          disabled={percentage == 100}
-          className="font-semibold"
-        >
-          Pause
-        </button>
-      )
-    } else if (!isTicking && isStarted) {
-      return (
-        <button
-          onClick={onStart}
-          disabled={percentage == 100}
-          className="font-semibold"
-        >
-          Resume
-        </button>
-      )
-    }
-  }
-
   useEffect(() => {
     if (timeLeft <= 0) {
       setTimeLeft((timeLeft) => totalTime)
@@ -80,10 +40,10 @@ export default function CircularBar({ size, strokeWidth, totalTime }) {
       setIsStarted(() => false)
       clearInterval(intervalID)
     }
-  })
+  }, [timeLeft])
 
   return (
-    <div className="relative">
+    <div className="relative mt-14">
       <svg width={size} height={size} viewBox={viewBox} className="static">
         <circle
           fill="none"
@@ -107,13 +67,13 @@ export default function CircularBar({ size, strokeWidth, totalTime }) {
           style={{ transition: 'all 1.5s' }}
         />
       </svg>
-      {/**TODO: need to set parent container as relative and set button as absolute to move into the circle */}
-      <div className="absolute top-1/3 w-full text-6xl font-semibold">
-        <p>{secondsToMinutes(timeLeft)}</p>
-      </div>
-      <div className="absolute top-2/3 w-full text-2xl text-gray-50">
-        {renderButton()}
-      </div>
+      <TimeRemain timeInSeconds={timeLeft} />
+      <ClockButton
+        isStarted={isStarted}
+        isTicking={isTicking}
+        onStart={onStart}
+        onPause={onPause}
+      />
     </div>
   )
 }
