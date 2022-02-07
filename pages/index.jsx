@@ -6,8 +6,6 @@ import SettingButton from '../components/SettingButton'
 import { useState } from 'react'
 
 export default function Home() {
-  const [totalTimeInSeconds, setTotalTimeInSeconds] = useState(600)
-
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-red-300 py-2  ">
       <Head>
@@ -19,11 +17,7 @@ export default function Home() {
       </header>
       <main className="flex w-full flex-1 flex-col items-center text-center font-semibold text-gray-100">
         <ModeSelector />
-        <CircularBar
-          size={300}
-          strokeWidth={20}
-          totalTime={totalTimeInSeconds}
-        />
+        <CircularBar size={300} strokeWidth={20} totalTime={600} />
         <SettingButton />
       </main>
 

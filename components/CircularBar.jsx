@@ -1,9 +1,11 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import TimeRemain from '../components/TimeRemain'
 import ClockButton from '../components/ClockButton'
+import { SettingContext } from '../lib/context'
+
 export default function CircularBar({ size, strokeWidth, totalTime }) {
   const [percentage, setPercentage] = useState(100)
-  const [timeLeft, setTimeLeft] = useState(totalTime)
+  const [timeLeft, setTimeLeft] = useContext(SettingContext).pomodoro
   const [intervalID, setIntervalID] = useState(0)
   const [isTicking, setIsTicking] = useState(false)
   const [isStarted, setIsStarted] = useState(false)
@@ -11,11 +13,7 @@ export default function CircularBar({ size, strokeWidth, totalTime }) {
   const radius = (size - strokeWidth) / 2
   const circumference = radius * Math.PI * 2
   const dash = (percentage * circumference) / 100
-  const percentagePerSecond = 100 / totalTime
-
-  /**debug - setPercentage can't use timeLeft
-   *    because it keep using old value of timeLeft
-   *  */
+  const percentagePerSecond = 100 / timeLeft
 
   /**setState callback is use to update state immediately */
   const onStart = () => {
@@ -33,6 +31,7 @@ export default function CircularBar({ size, strokeWidth, totalTime }) {
     setIsTicking(() => false)
   }
 
+  /**change setTimeLeft is depend on the selector's state */
   useEffect(() => {
     if (timeLeft <= 0) {
       setTimeLeft((timeLeft) => totalTime)
