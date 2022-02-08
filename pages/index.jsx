@@ -17,7 +17,7 @@ export default function Home() {
       </header>
       <main className="flex w-full flex-1 flex-col items-center text-center font-semibold text-gray-100">
         <ModeSelector />
-        <CircularBar size={300} strokeWidth={20} totalTime={600} />
+        <CircularBar size={300} strokeWidth={20} />
         <SettingButton />
       </main>
 

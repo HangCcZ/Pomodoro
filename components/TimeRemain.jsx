@@ -1,11 +1,13 @@
-export default function TimeRemain({ timeInSeconds }) {
+import { useContext } from 'react'
+import { SettingContext } from '../lib/context'
+
+export default function TimeRemain() {
+  const [clockTime, setClockTime] = useContext(SettingContext).clockTime
   return (
     <div className="absolute top-1/3 w-full text-6xl font-semibold">
       <p>
-        {Math.trunc(timeInSeconds / 60)}:
-        {timeInSeconds % 60 < 10
-          ? '0' + (timeInSeconds % 60)
-          : timeInSeconds % 60}
+        {Math.trunc(clockTime / 60)}:
+        {clockTime % 60 < 10 ? '0' + (clockTime % 60) : clockTime % 60}
       </p>
     </div>
   )

@@ -3,22 +3,23 @@ import TimeRemain from '../components/TimeRemain'
 import ClockButton from '../components/ClockButton'
 import { SettingContext } from '../lib/context'
 
-export default function CircularBar({ size, strokeWidth, totalTime }) {
-  const [percentage, setPercentage] = useState(100)
-  const [timeLeft, setTimeLeft] = useContext(SettingContext).pomodoro
-  const [intervalID, setIntervalID] = useState(0)
+export default function CircularBar({ size, strokeWidth }) {
+  const [percentage, setPercentage] = useContext(SettingContext).percentage
+  const [clockTime, setClockTime] = useContext(SettingContext).clockTime
+  const [intervalID, setIntervalID] = useContext(SettingContext).intervalID
+  const [isStarted, setIsStarted] = useContext(SettingContext).isStarted
   const [isTicking, setIsTicking] = useState(false)
-  const [isStarted, setIsStarted] = useState(false)
+
   const viewBox = `0 0 ${size} ${size}`
   const radius = (size - strokeWidth) / 2
   const circumference = radius * Math.PI * 2
   const dash = (percentage * circumference) / 100
-  const percentagePerSecond = 100 / timeLeft
+  const percentagePerSecond = 100 / clockTime
 
   /**setState callback is use to update state immediately */
   const onStart = () => {
     const currentIntervalID = setInterval(() => {
-      setTimeLeft((timeLeft) => timeLeft - 1)
+      setClockTime((clockTime) => clockTime - 1)
       setPercentage((percentage) => percentage - percentagePerSecond)
     }, 1000)
     setIsTicking(() => true)
@@ -33,13 +34,13 @@ export default function CircularBar({ size, strokeWidth, totalTime }) {
 
   /**change setTimeLeft is depend on the selector's state */
   useEffect(() => {
-    if (timeLeft <= 0) {
-      setTimeLeft((timeLeft) => totalTime)
+    if (clockTime <= 0) {
+      setClockTime((clockTime) => clockTime)
       setPercentage((percentage) => 100)
       setIsStarted(() => false)
       clearInterval(intervalID)
     }
-  }, [timeLeft])
+  }, [])
 
   return (
     <div className="relative mt-14">
@@ -63,16 +64,11 @@ export default function CircularBar({ size, strokeWidth, totalTime }) {
           strokeWidth={`${strokeWidth}px`}
           strokeDasharray={[dash, circumference - dash]}
           strokeLinecap="round"
-          style={{ transition: 'all 1.5s' }}
+          style={{ transition: 'all 1s' }}
         />
       </svg>
-      <TimeRemain timeInSeconds={timeLeft} />
-      <ClockButton
-        isStarted={isStarted}
-        isTicking={isTicking}
-        onStart={onStart}
-        onPause={onPause}
-      />
+      <TimeRemain />
+      <ClockButton isTicking={isTicking} onStart={onStart} onPause={onPause} />
     </div>
   )
 }

@@ -1,9 +1,8 @@
-export default function ClockButton({
-  isStarted,
-  isTicking,
-  onStart,
-  onPause,
-}) {
+import { useContext } from 'react'
+import { SettingContext } from '../lib/context'
+export default function ClockButton({ isTicking, onStart, onPause }) {
+  const [isStarted, setIsStarted] = useContext(SettingContext).isStarted
+
   const renderButton = () => {
     if (!isStarted) {
       return (
