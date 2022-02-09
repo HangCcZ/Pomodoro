@@ -11,12 +11,12 @@ export default function ModeSelector() {
   const [mode, setMode] = useContext(SettingContext).clockMode
   const [isStarted, setIsStarted] = useContext(SettingContext).isStarted
   const [intervalID, setIntervalID] = useContext(SettingContext).intervalID
-  console.log(mode)
+
   return (
     <div className="mt-8 grid h-14 w-11/12 rounded-full bg-red-400 text-xs">
       <div className="mx-1 grid grid-cols-3 items-center gap-1 ">
         <button
-          className={`rounded-full px-3 py-4 ${
+          className={`rounded-full px-3 py-4 hover:bg-red-600 ${
             mode === 'pomodoro' ? 'bg-red-500' : ''
           }`}
           onClick={() => {
@@ -29,7 +29,7 @@ export default function ModeSelector() {
           pomodoro
         </button>
         <button
-          className={`rounded-full px-3 py-4 ${
+          className={`rounded-full px-3 py-4 hover:bg-red-600 ${
             mode === 'shortbreak' ? 'bg-red-500' : ''
           }`}
           onClick={() => {
@@ -42,7 +42,7 @@ export default function ModeSelector() {
           short break
         </button>
         <button
-          className={`rounded-full px-3 py-4 ${
+          className={`rounded-full px-3 py-4 hover:bg-red-600 ${
             mode === 'longbreak' ? 'bg-red-500' : ''
           }`}
           onClick={() => {
