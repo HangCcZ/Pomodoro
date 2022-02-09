@@ -6,19 +6,19 @@ export default function ClockButton({ isTicking, onStart, onPause }) {
   const renderButton = () => {
     if (!isStarted) {
       return (
-        <button onClick={onStart} className="font-semibold">
+        <button onClick={onStart} className="font-semibold hover:text-red-400">
           Start
         </button>
       )
     } else if (isTicking) {
       return (
-        <button onClick={onPause} className="font-semibold">
+        <button onClick={onPause} className="font-semibold hover:text-red-400">
           Pause
         </button>
       )
     } else if (!isTicking && isStarted) {
       return (
-        <button onClick={onStart} className="font-semibold">
+        <button onClick={onStart} className="font-semibold hover:text-red-400">
           Resume
         </button>
       )
