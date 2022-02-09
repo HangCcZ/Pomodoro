@@ -8,6 +8,14 @@ export default function CircularBar({ size, strokeWidth }) {
   const [clockTime, setClockTime] = useContext(SettingContext).clockTime
   const [intervalID, setIntervalID] = useContext(SettingContext).intervalID
   const [isStarted, setIsStarted] = useContext(SettingContext).isStarted
+  const [mode, setMode] = useContext(SettingContext).clockMode
+  const [pomodoroTime, setPomodoroTime] =
+    useContext(SettingContext).pomodoroTime
+  const [shortBreakTime, setShortBreakTime] =
+    useContext(SettingContext).shortBreakTime
+  const [longBreakTime, setLongBreakTime] =
+    useContext(SettingContext).longBreakTime
+
   const [isTicking, setIsTicking] = useState(false)
 
   const viewBox = `0 0 ${size} ${size}`
@@ -32,7 +40,6 @@ export default function CircularBar({ size, strokeWidth }) {
     setIsTicking(() => false)
   }
 
-  /**change setTimeLeft is depend on the selector's state */
   useEffect(() => {
     if (clockTime <= 0) {
       setClockTime((clockTime) => {
@@ -44,11 +51,13 @@ export default function CircularBar({ size, strokeWidth }) {
           return longBreakTime
         }
       })
+
+      setIsTicking(false)
       setPercentage((percentage) => 100)
       setIsStarted(() => false)
       clearInterval(intervalID)
     }
-  }, [])
+  }, [clockTime])
 
   return (
     <div className="relative mt-14">
