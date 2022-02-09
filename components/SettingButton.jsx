@@ -1,6 +1,6 @@
-export default function SettingButton() {
+export default function SettingButton({ setOpen }) {
   return (
-    <button className="mt-6 ">
+    <button className="mt-6 " onClick={() => setOpen(true)}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         className="h-8 w-8 hover:text-red-500"

@@ -30,10 +30,10 @@ export default function ModeSelector() {
         </button>
         <button
           className={`rounded-full px-3 py-4 hover:bg-red-600 ${
-            mode === 'shortbreak' ? 'bg-red-500' : ''
+            mode === 'shortBreak' ? 'bg-red-500' : ''
           }`}
           onClick={() => {
-            setMode(() => 'shortbreak')
+            setMode(() => 'shortBreak')
             setClockTime(() => shortBreakTime)
             setIsStarted(() => false)
             clearInterval(intervalID)
@@ -43,10 +43,10 @@ export default function ModeSelector() {
         </button>
         <button
           className={`rounded-full px-3 py-4 hover:bg-red-600 ${
-            mode === 'longbreak' ? 'bg-red-500' : ''
+            mode === 'longBreak' ? 'bg-red-500' : ''
           }`}
           onClick={() => {
-            setMode(() => 'longbreak')
+            setMode(() => 'longBreak')
             setClockTime(() => longBreakTime)
             setIsStarted(() => false)
             clearInterval(intervalID)
