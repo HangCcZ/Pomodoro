@@ -35,7 +35,15 @@ export default function CircularBar({ size, strokeWidth }) {
   /**change setTimeLeft is depend on the selector's state */
   useEffect(() => {
     if (clockTime <= 0) {
-      setClockTime((clockTime) => clockTime)
+      setClockTime((clockTime) => {
+        if (mode == 'pomodoro') {
+          return pomodoroTime
+        } else if (mode == 'shortBreak') {
+          return shortBreakTime
+        } else if (mode == 'longBreak') {
+          return longBreakTime
+        }
+      })
       setPercentage((percentage) => 100)
       setIsStarted(() => false)
       clearInterval(intervalID)
