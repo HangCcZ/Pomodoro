@@ -1,5 +1,24 @@
 import { Fragment, useRef, useState } from 'react'
 
+const CloseButton = () => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      className="h-6 w-6 text-slate-400"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      strokeWidth={2}
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M6 18L18 6M6 6l12 12"
+      />
+    </svg>
+  )
+}
+
 export default function Modal({ open, setOpen }) {
   const cancelButtonRef = useRef(null)
   return (
@@ -10,20 +29,7 @@ export default function Modal({ open, setOpen }) {
     >
       <div className="flex justify-between">
         <h1 className="mb-7 text-2xl font-semibold text-slate-700">Setting</h1>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-6 w-6 text-slate-400"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          strokeWidth={2}
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M6 18L18 6M6 6l12 12"
-          />
-        </svg>
+        <CloseButton />
       </div>
 
       <hr className="mb-5" />
@@ -31,23 +37,23 @@ export default function Modal({ open, setOpen }) {
         <h2 className="mb-2 font-semibold tracking-widest text-slate-700">
           TIME (MINUTES)
         </h2>
-        <div className="mb-5 grid grid-cols-3">
+        <div className="mb-5 grid grid-cols-3 gap-4">
           <div>
             <label>
-              <p className="text-slate-400">pomodoro</p>
+              <p className=" text-slate-400">pomodoro</p>
+              <input
+                type="number"
+                className="max-w-full rounded-2xl border-2 bg-slate-200 p-2 text-center text-lg font-bold text-slate-700 outline-none"
+              />
             </label>
-            <input
-              type="number"
-              className="w-28 rounded-lg border-2 p-2 text-lg text-slate-700 outline-none"
-            />
           </div>
           <div>
             <label>
               <p className="text-slate-400">shortbreak</p>
             </label>
             <input
-              type={'number'}
-              className="w-28 rounded-lg border-2 p-2 text-lg text-slate-700 outline-none"
+              type="number"
+              className="max-w-full rounded-2xl border-2 bg-slate-200 p-2 text-center text-lg font-bold text-slate-700 outline-none"
             />
           </div>
           <div>
@@ -55,8 +61,8 @@ export default function Modal({ open, setOpen }) {
               <p className="text-slate-400">longbreak</p>
             </label>
             <input
-              type={'number'}
-              className="w-28 rounded-lg border-2 p-2 text-lg text-slate-700 outline-none"
+              type="number"
+              className="max-w-full rounded-2xl border-2 bg-slate-200 p-2 text-center text-lg font-bold text-slate-700 outline-none"
             />
           </div>
         </div>
@@ -81,7 +87,7 @@ export default function Modal({ open, setOpen }) {
       <hr className="mb-5" />
       <div className="flex items-center justify-between">
         <h2 className="mb-2 font-semibold tracking-widest text-slate-700">
-          Color
+          COLOR
         </h2>
         <div className="flex space-x-6">
           <div className="h-10 w-10 rounded-full bg-red-300 p-2 text-center text-lg "></div>
