@@ -3,7 +3,7 @@ import { SettingContext } from '../lib/context'
 export default function ClockButton({ isTicking, onStart, onPause }) {
   const [isStarted, setIsStarted] = useContext(SettingContext).isStarted
 
-  const renderButton = () => {
+  const ButtonGroup = () => {
     if (!isStarted) {
       return (
         <button onClick={onStart} className="font-semibold hover:text-red-400">
@@ -27,7 +27,7 @@ export default function ClockButton({ isTicking, onStart, onPause }) {
 
   return (
     <div className="absolute top-2/3 w-full text-2xl text-gray-50">
-      {renderButton()}
+      <ButtonGroup />
     </div>
   )
 }
