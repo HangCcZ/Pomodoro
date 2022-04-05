@@ -25,7 +25,7 @@ export default function Modal({ open, setOpen }) {
     <div
       className={`${
         open ? 'block' : 'hidden'
-      } max-w-3xl rounded-lg bg-white p-8 sm:w-1/2`}
+      } relative max-w-3xl rounded-lg bg-white p-8 sm:w-1/2`}
     >
       <div className="flex justify-between">
         <h1 className="mb-7 text-2xl font-semibold text-slate-700">Setting</h1>
@@ -76,10 +76,10 @@ export default function Modal({ open, setOpen }) {
           <div className="h-10 w-10 rounded-full bg-slate-600 p-2 text-center text-lg text-white">
             Aa
           </div>
-          <div className="h-10 w-10 rounded-full bg-slate-200 p-2 text-center text-lg">
+          <div className="h-10 w-10 rounded-full bg-slate-200 p-2 text-center font-serif text-lg">
             Aa
           </div>
-          <div className="h-10 w-10 rounded-full bg-slate-200 p-2 text-center text-lg">
+          <div className="h-10 w-10 rounded-full bg-slate-200 p-2 text-center font-mono text-lg">
             Aa
           </div>
         </div>
@@ -94,6 +94,11 @@ export default function Modal({ open, setOpen }) {
           <div className="h-10 w-10 rounded-full bg-green-300 p-2 text-center text-lg"></div>
           <div className="h-10 w-10 rounded-full bg-blue-300 p-2 text-center text-lg"></div>
         </div>
+      </div>
+      <div className="absolute inset-x-1/2 -bottom-4 flex justify-center">
+        <button className="rounded-xl bg-red-500 py-2 px-5 text-center uppercase text-white hover:bg-red-600 hover:ring-2 hover:ring-red-600">
+          Apply
+        </button>
       </div>
     </div>
   )
