@@ -25,7 +25,7 @@ export default function Modal({ open, setOpen }) {
     <div
       className={`${
         open ? 'block' : 'hidden'
-      } relative max-w-3xl rounded-lg bg-white p-8 sm:w-1/2`}
+      } relative max-w-xl rounded-lg bg-white p-8 sm:w-1/2`}
     >
       <div className="flex justify-between">
         <h1 className="mb-7 text-2xl font-semibold text-slate-700">Setting</h1>
