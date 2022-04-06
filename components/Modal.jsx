@@ -52,7 +52,22 @@ export default function Modal({ open, setOpen }) {
     newColor: color,
   })
 
+  //parse number here
   const onApplyClick = function () {}
+
+  const onTimeSettingChange = function (time, clockType) {
+    setNewSetting({
+      ...newSetting,
+      [clockType]: time, // parse this on apply button
+    })
+  }
+
+  const onColorClick = function (color) {
+    setNewSetting({
+      ...newSetting,
+      newColor: color,
+    })
+  }
 
   return (
     <div
@@ -81,12 +96,7 @@ export default function Modal({ open, setOpen }) {
                   type="number"
                   value={newSetting.newPomodoroTime}
                   onChange={(e) => {
-                    if (e.target.value !== '') {
-                      setNewSetting({
-                        ...newSetting,
-                        newPomodoroTime: parseInt(e.target.value),
-                      })
-                    }
+                    onTimeSettingChange(e.target.value, 'newPomodoroTime')
                   }}
                   className="max-w-full rounded-2xl border-2 bg-slate-200 p-2 text-center text-lg font-bold text-slate-700 outline-none"
                 />
@@ -98,14 +108,10 @@ export default function Modal({ open, setOpen }) {
               </label>
               <input
                 type="number"
+                min={1}
                 value={newSetting.newShortBreakTime}
                 onChange={(e) => {
-                  if (e.target.value !== '') {
-                    setNewSetting({
-                      ...newSetting,
-                      newShortBreakTime: parseInt(e.target.value),
-                    })
-                  }
+                  onTimeSettingChange(e.target.value, 'newShortBreakTime')
                 }}
                 className="max-w-full rounded-2xl border-2 bg-slate-200 p-2 text-center text-lg font-bold text-slate-700 outline-none"
               />
@@ -118,12 +124,7 @@ export default function Modal({ open, setOpen }) {
                 type="number"
                 value={newSetting.newlongBreakTime}
                 onChange={(e) => {
-                  if (e.target.value !== '') {
-                    setNewSetting({
-                      ...newSetting,
-                      newlongBreakTime: parseInt(e.target.value),
-                    })
-                  }
+                  onTimeSettingChange(e.target.value, 'newlongBreakTime')
                 }}
                 className="max-w-full rounded-2xl border-2 bg-slate-200 p-2 text-center text-lg font-bold text-slate-700 outline-none"
               />
@@ -154,34 +155,19 @@ export default function Modal({ open, setOpen }) {
           </h2>
           <div className="flex space-x-6">
             <button
-              onClick={() =>
-                setNewSetting({
-                  ...newSetting,
-                  newColor: 'red',
-                })
-              }
+              onClick={() => onColorClick('red')}
               className="h-10 w-10 rounded-full bg-red-300 p-2 text-center text-lg"
             >
               {newSetting.newColor === 'red' && <CheckIcon />}
             </button>
             <button
-              onClick={() =>
-                setNewSetting({
-                  ...newSetting,
-                  newColor: 'green',
-                })
-              }
+              onClick={() => onColorClick('green')}
               className="h-10 w-10 rounded-full bg-green-300 p-2 text-center text-lg"
             >
               {newSetting.newColor === 'green' && <CheckIcon />}
             </button>
             <button
-              onClick={() =>
-                setNewSetting({
-                  ...newSetting,
-                  newColor: 'blue',
-                })
-              }
+              onClick={() => onColorClick('blue')}
               className="h-10 w-10 rounded-full bg-blue-300 p-2 text-center text-lg"
             >
               {newSetting.newColor === 'blue' && <CheckIcon />}
