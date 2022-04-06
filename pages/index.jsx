@@ -25,7 +25,6 @@ export default function Home() {
           <SettingButton setOpen={setOpen} />
         </main>
         <Modal open={open} setOpen={setOpen} />
-
         <Footer />
       </div>
     </div>

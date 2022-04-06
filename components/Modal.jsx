@@ -1,6 +1,29 @@
-import { Fragment, useRef, useState } from 'react'
+import { useState, useContext } from 'react'
+import { SettingContext } from '../lib/context'
+
+const CheckIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className="h-6 w-6"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    strokeWidth={2}
+  >
+    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+  </svg>
+)
 
 export default function Modal({ open, setOpen }) {
+  const [font, setFont] = useContext(SettingContext).fontOption
+  const [pomodoroTime, setPomodoroTime] =
+    useContext(SettingContext).pomodoroTime
+  const [shortBreakTime, setShortBreakTime] =
+    useContext(SettingContext).shortBreakTime
+  const [longBreakTime, setLongBreakTime] =
+    useContext(SettingContext).longBreakTime
+  const [color, setColor] = useContext(SettingContext).colorOption
+
   const CloseButton = () => {
     return (
       <button onClick={() => setOpen(false)}>
@@ -21,6 +44,16 @@ export default function Modal({ open, setOpen }) {
       </button>
     )
   }
+  const [newSetting, setNewSetting] = useState({
+    newPomodoroTime: 25,
+    newShortBreakTime: 5,
+    newlongBreakTime: 10,
+    newFont: font,
+    newColor: color,
+  })
+
+  const onApplyClick = function () {}
+
   return (
     <div
       className={`${
@@ -46,6 +79,15 @@ export default function Modal({ open, setOpen }) {
                 <p className=" text-slate-400">pomodoro</p>
                 <input
                   type="number"
+                  value={newSetting.newPomodoroTime}
+                  onChange={(e) => {
+                    if (e.target.value !== '') {
+                      setNewSetting({
+                        ...newSetting,
+                        newPomodoroTime: parseInt(e.target.value),
+                      })
+                    }
+                  }}
                   className="max-w-full rounded-2xl border-2 bg-slate-200 p-2 text-center text-lg font-bold text-slate-700 outline-none"
                 />
               </label>
@@ -56,6 +98,15 @@ export default function Modal({ open, setOpen }) {
               </label>
               <input
                 type="number"
+                value={newSetting.newShortBreakTime}
+                onChange={(e) => {
+                  if (e.target.value !== '') {
+                    setNewSetting({
+                      ...newSetting,
+                      newShortBreakTime: parseInt(e.target.value),
+                    })
+                  }
+                }}
                 className="max-w-full rounded-2xl border-2 bg-slate-200 p-2 text-center text-lg font-bold text-slate-700 outline-none"
               />
             </div>
@@ -65,6 +116,15 @@ export default function Modal({ open, setOpen }) {
               </label>
               <input
                 type="number"
+                value={newSetting.newlongBreakTime}
+                onChange={(e) => {
+                  if (e.target.value !== '') {
+                    setNewSetting({
+                      ...newSetting,
+                      newlongBreakTime: parseInt(e.target.value),
+                    })
+                  }
+                }}
                 className="max-w-full rounded-2xl border-2 bg-slate-200 p-2 text-center text-lg font-bold text-slate-700 outline-none"
               />
             </div>
@@ -93,9 +153,39 @@ export default function Modal({ open, setOpen }) {
             COLOR
           </h2>
           <div className="flex space-x-6">
-            <div className="h-10 w-10 rounded-full bg-red-300 p-2 text-center text-lg "></div>
-            <div className="h-10 w-10 rounded-full bg-green-300 p-2 text-center text-lg"></div>
-            <div className="h-10 w-10 rounded-full bg-blue-300 p-2 text-center text-lg"></div>
+            <button
+              onClick={() =>
+                setNewSetting({
+                  ...newSetting,
+                  newColor: 'red',
+                })
+              }
+              className="h-10 w-10 rounded-full bg-red-300 p-2 text-center text-lg"
+            >
+              {newSetting.newColor === 'red' && <CheckIcon />}
+            </button>
+            <button
+              onClick={() =>
+                setNewSetting({
+                  ...newSetting,
+                  newColor: 'green',
+                })
+              }
+              className="h-10 w-10 rounded-full bg-green-300 p-2 text-center text-lg"
+            >
+              {newSetting.newColor === 'green' && <CheckIcon />}
+            </button>
+            <button
+              onClick={() =>
+                setNewSetting({
+                  ...newSetting,
+                  newColor: 'blue',
+                })
+              }
+              className="h-10 w-10 rounded-full bg-blue-300 p-2 text-center text-lg"
+            >
+              {newSetting.newColor === 'blue' && <CheckIcon />}
+            </button>
           </div>
         </div>
         <div className="absolute inset-x-1/2 -bottom-4 flex justify-center">

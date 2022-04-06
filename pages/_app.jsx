@@ -9,7 +9,7 @@ function MyApp({ Component, pageProps }) {
   const [pomodoroTime, setPomodoroTime] = useState(minuteToSecond(25))
   const [shortBreakTime, setShortBreakTime] = useState(minuteToSecond(5))
   const [longBreakTime, setLongBreakTime] = useState(minuteToSecond(10))
-  const [color, setColor] = useState()
+  const [color, setColor] = useState('red')
   const [font, setFont] = useState('font-SpaceMono')
   const [percentage, setPercentage] = useState(100)
   const [clockTime, setClockTime] = useState(() => {
@@ -32,7 +32,7 @@ function MyApp({ Component, pageProps }) {
         shortBreakTime: [shortBreakTime, setShortBreakTime],
         longBreakTime: [longBreakTime, setLongBreakTime],
         fontOption: [font, setFont],
-        colorOptin: [color, setColor],
+        colorOption: [color, setColor],
         clockMode: [mode, setMode],
         percentage: [percentage, setPercentage],
       }}
