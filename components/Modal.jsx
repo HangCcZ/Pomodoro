@@ -1,6 +1,7 @@
 import { useState, useContext } from 'react'
 import { SettingContext } from '../lib/context'
 import classNames from 'classnames'
+import { minuteToSecond } from '../lib/minuteToSecond'
 
 const CheckIcon = () => (
   <svg
@@ -54,7 +55,26 @@ export default function Modal({ open, setOpen }) {
   })
 
   //parse number here
-  const onApplyClick = function () {}
+  const onApplyClick = function () {
+    setPomodoroTime(
+      !isNaN(newSetting.newPomodoroTime)
+        ? minuteToSecond(newSetting.newPomodoroTime)
+        : pomodoroTime
+    )
+    setShortBreakTime(
+      !isNaN(newSetting.newShortBreakTime)
+        ? minuteToSecond(newSetting.newShortBreakTime)
+        : shortBreakTime
+    )
+    setLongBreakTime(
+      !isNaN(newSetting.newlongBreakTime)
+        ? minuteToSecond(newSetting.newlongBreakTime)
+        : longBreakTime
+    )
+
+    setFont(newSetting.newFont)
+    setColor(newSetting.newColor)
+  }
 
   const onTimeSettingChange = function (time, clockType) {
     setNewSetting({
@@ -207,7 +227,10 @@ export default function Modal({ open, setOpen }) {
           </div>
         </div>
         <div className="absolute inset-x-1/2 -bottom-4 flex justify-center">
-          <button className="rounded-xl bg-red-500 py-2 px-5 text-center uppercase text-white hover:bg-red-600 hover:ring-2 hover:ring-red-600">
+          <button
+            onClick={onApplyClick}
+            className="rounded-xl bg-red-500 py-2 px-5 text-center uppercase text-white hover:bg-red-600 hover:ring-2 hover:ring-red-600"
+          >
             Apply
           </button>
         </div>
