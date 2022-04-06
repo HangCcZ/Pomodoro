@@ -1,5 +1,6 @@
 import { useState, useContext } from 'react'
 import { SettingContext } from '../lib/context'
+import classNames from 'classnames'
 
 const CheckIcon = () => (
   <svg
@@ -66,6 +67,13 @@ export default function Modal({ open, setOpen }) {
     setNewSetting({
       ...newSetting,
       newColor: color,
+    })
+  }
+
+  const onFontClick = function (font) {
+    setNewSetting({
+      ...newSetting,
+      newFont: font,
     })
   }
 
@@ -137,15 +145,39 @@ export default function Modal({ open, setOpen }) {
             FONT
           </h2>
           <div className="flex space-x-6">
-            <div className="h-10 w-10 rounded-full bg-slate-600 p-2 text-center text-lg text-white">
+            <button
+              onClick={() => onFontClick('font-SpaceMono')}
+              className={classNames(
+                'h-10 w-10 rounded-full p-2 text-center text-lg',
+                newSetting.newFont === 'font-SpaceMono'
+                  ? 'bg-slate-500 text-slate-200'
+                  : 'bg-slate-200 text-slate-700'
+              )}
+            >
               Aa
-            </div>
-            <div className="h-10 w-10 rounded-full bg-slate-200 p-2 text-center font-serif text-lg">
+            </button>
+            <button
+              onClick={() => onFontClick('font-serif')}
+              className={classNames(
+                'h-10 w-10 rounded-full p-2 text-center font-serif text-lg',
+                newSetting.newFont === 'font-serif'
+                  ? 'bg-slate-500 text-slate-200'
+                  : 'bg-slate-200 text-slate-700'
+              )}
+            >
               Aa
-            </div>
-            <div className="h-10 w-10 rounded-full bg-slate-200 p-2 text-center font-mono text-lg">
+            </button>
+            <button
+              onClick={() => onFontClick('font-mono')}
+              className={classNames(
+                'h-10 w-10 rounded-full p-2 text-center font-mono text-lg',
+                newSetting.newFont === 'font-mono'
+                  ? 'bg-slate-500 text-slate-200'
+                  : 'bg-slate-200 text-slate-700'
+              )}
+            >
               Aa
-            </div>
+            </button>
           </div>
         </div>
         <hr className="mb-5" />
