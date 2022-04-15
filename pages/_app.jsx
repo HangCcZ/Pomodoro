@@ -2,6 +2,7 @@ import '../styles/globals.css'
 import { SettingContext } from '../lib/context'
 import { useState } from 'react'
 import { minuteToSecond } from '../lib/minuteToSecond.js'
+
 function MyApp({ Component, pageProps }) {
   const [intervalID, setIntervalID] = useState(0)
   const [isStarted, setIsStarted] = useState(false)

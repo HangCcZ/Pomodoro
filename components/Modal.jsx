@@ -3,6 +3,12 @@ import { SettingContext } from '../lib/context'
 import classNames from 'classnames'
 import { minuteToSecond } from '../lib/minuteToSecond'
 
+const theme = {
+  red: { bg: 'bg-red-500', hover: 'bg-red-600', ring: 'ring-red-600' },
+  green: { bg: 'bg-green-500', hover: 'bg-green-600', ring: 'ring-green-600' },
+  blue: { bg: 'bg-blue-500', hover: 'bg-blue-600', ring: 'ring-blue-600' },
+}
+
 const CheckIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -229,7 +235,12 @@ export default function Modal({ open, setOpen }) {
         <div className="absolute inset-x-1/2 -bottom-4 flex justify-center">
           <button
             onClick={onApplyClick}
-            className="rounded-xl bg-red-500 py-2 px-5 text-center uppercase text-white hover:bg-red-600 hover:ring-2 hover:ring-red-600"
+            className={classNames(
+              `rounded-xl py-2 px-5 text-center uppercase text-white hover:ring-2`,
+              theme[color].bg,
+              `hover:${theme[color].hover}`,
+              `hover:${theme[color].ring}`
+            )}
           >
             Apply
           </button>

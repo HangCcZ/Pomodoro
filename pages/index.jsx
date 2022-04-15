@@ -4,14 +4,17 @@ import CircularBar from '../components/CircularBar'
 import ModeSelector from '../components/ModeSelector'
 import SettingButton from '../components/SettingButton'
 import Modal from '../components/Modal'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import { SettingContext } from '../lib/context'
 
 export default function Home() {
   const [open, setOpen] = useState(false)
+  const [color, setColor] = useContext(SettingContext).colorOption
   return (
     <div>
-      {' '}
-      <div className="flex min-h-screen flex-col items-center justify-center bg-red-300 py-2  ">
+      <div
+        className={`flex min-h-screen flex-col items-center justify-center bg-${color}-300 py-2`}
+      >
         <Head>
           <title>Let's Focus | Pomodoro</title>
           <link rel="icon" href="/tomato-svgrepo-com.svg" />

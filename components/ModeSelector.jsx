@@ -1,5 +1,25 @@
 import { useContext } from 'react'
 import { SettingContext } from '../lib/context'
+import classNames from 'classnames'
+
+const theme = {
+  red: {
+    selectorBar: 'bg-red-400',
+    bg: 'bg-red-500',
+    hover: 'hover:bg-red-600',
+  },
+  green: {
+    selectorBar: 'bg-green-400',
+    bg: 'bg-green-500',
+    hover: 'hover:bg-green-600',
+  },
+  blue: {
+    selectorBar: 'bg-blue-400',
+    bg: 'bg-blue-500',
+    hover: 'hover:bg-blue-600',
+  },
+}
+
 export default function ModeSelector() {
   const [clockTime, setClockTime] = useContext(SettingContext).clockTime
   const [pomodoroTime, setPomodoroTime] =
@@ -11,14 +31,22 @@ export default function ModeSelector() {
   const [mode, setMode] = useContext(SettingContext).clockMode
   const [isStarted, setIsStarted] = useContext(SettingContext).isStarted
   const [intervalID, setIntervalID] = useContext(SettingContext).intervalID
+  const [color, setColor] = useContext(SettingContext).colorOption
 
   return (
-    <div className="mt-8 grid h-14 w-11/12 rounded-full bg-red-400 text-xs">
+    <div
+      className={classNames(
+        `mt-8 grid h-14 w-11/12 rounded-full text-sm`,
+        theme[color].selectorBar
+      )}
+    >
       <div className="mx-1 grid grid-cols-3 items-center gap-1 ">
         <button
-          className={`rounded-full px-3 py-4 hover:bg-red-600 ${
-            mode === 'pomodoro' ? 'bg-red-500' : ''
-          }`}
+          className={classNames(
+            `rounded-full px-3 py-4`,
+            theme[color].hover,
+            mode === 'pomodoro' ? theme[color].bg : ''
+          )}
           onClick={() => {
             setMode(() => 'pomodoro')
             setClockTime(() => pomodoroTime)
@@ -29,9 +57,11 @@ export default function ModeSelector() {
           pomodoro
         </button>
         <button
-          className={`rounded-full px-3 py-4 hover:bg-red-600 ${
-            mode === 'shortBreak' ? 'bg-red-500' : ''
-          }`}
+          className={classNames(
+            `rounded-full px-3 py-4`,
+            theme[color].hover,
+            mode === 'shortBreak' ? theme[color].bg : ''
+          )}
           onClick={() => {
             setMode(() => 'shortBreak')
             setClockTime(() => shortBreakTime)
@@ -42,9 +72,11 @@ export default function ModeSelector() {
           short break
         </button>
         <button
-          className={`rounded-full px-3 py-4 hover:bg-red-600 ${
-            mode === 'longBreak' ? 'bg-red-500' : ''
-          }`}
+          className={classNames(
+            `rounded-full px-3 py-4`,
+            theme[color].hover,
+            mode === 'longBreak' ? theme[color].bg : ''
+          )}
           onClick={() => {
             setMode(() => 'longBreak')
             setClockTime(() => longBreakTime)

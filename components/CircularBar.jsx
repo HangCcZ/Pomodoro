@@ -3,12 +3,20 @@ import TimeRemain from '../components/TimeRemain'
 import ClockButton from '../components/ClockButton'
 import { SettingContext } from '../lib/context'
 
+const theme = {
+  red: { 400: 'stroke-red-400', 500: 'stoke-red-500' },
+  green: { 400: 'stroke-green-400', 500: 'stoke-green-500' },
+  blue: { 400: 'stroke-blue-400', 500: 'stoke-blue-500' },
+}
+
 export default function CircularBar({ size, strokeWidth }) {
   const [percentage, setPercentage] = useContext(SettingContext).percentage
   const [clockTime, setClockTime] = useContext(SettingContext).clockTime
   const [intervalID, setIntervalID] = useContext(SettingContext).intervalID
   const [isStarted, setIsStarted] = useContext(SettingContext).isStarted
   const [mode, setMode] = useContext(SettingContext).clockMode
+  const [color, setColor] = useContext(SettingContext).colorOption
+
   const [pomodoroTime, setPomodoroTime] =
     useContext(SettingContext).pomodoroTime
   const [shortBreakTime, setShortBreakTime] =
@@ -59,12 +67,14 @@ export default function CircularBar({ size, strokeWidth }) {
     }
   }, [clockTime])
 
+  const themeClasses = theme[color]
+
   return (
     <div className="relative mt-14">
       <svg width={size} height={size} viewBox={viewBox} className="static">
         <circle
           fill="none"
-          className="stroke-red-500"
+          className={themeClasses[400]}
           cx={size / 2}
           cy={size / 2}
           r={radius}
@@ -73,7 +83,7 @@ export default function CircularBar({ size, strokeWidth }) {
 
         <circle
           fill="none"
-          className="stroke-red-400"
+          className={themeClasses[500]}
           cx={size / 2}
           cy={size / 2}
           r={radius}
