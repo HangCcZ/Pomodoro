@@ -4,9 +4,9 @@ import ClockButton from '../components/ClockButton'
 import { SettingContext } from '../lib/context'
 
 const theme = {
-  red: { 400: 'stroke-red-400', 500: 'stoke-red-500' },
-  green: { 400: 'stroke-green-400', 500: 'stoke-green-500' },
-  blue: { 400: 'stroke-blue-400', 500: 'stoke-blue-500' },
+  red: { base: 'stroke-red-400', bar: 'stroke-red-500' },
+  green: { base: 'stroke-green-400', bar: 'stroke-green-500' },
+  blue: { base: 'stroke-blue-400', bar: 'stroke-blue-500' },
 }
 
 export default function CircularBar({ size, strokeWidth }) {
@@ -74,7 +74,7 @@ export default function CircularBar({ size, strokeWidth }) {
       <svg width={size} height={size} viewBox={viewBox} className="static">
         <circle
           fill="none"
-          className={themeClasses[400]}
+          className={themeClasses.bar}
           cx={size / 2}
           cy={size / 2}
           r={radius}
@@ -83,7 +83,7 @@ export default function CircularBar({ size, strokeWidth }) {
 
         <circle
           fill="none"
-          className={themeClasses[500]}
+          className={themeClasses.base}
           cx={size / 2}
           cy={size / 2}
           r={radius}
